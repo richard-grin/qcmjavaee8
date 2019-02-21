@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+  <body>
+
+    <ui:composition template="/WEB-INF/templates/template.xhtml">
+
+      <ui:define name="content">
+        <h1>#{bundle.oubliMotDePasseTitrePage}</h1>
+        <f:view>
+          <h:form>
+            <h:outputLabel value="Votre nom de login : " for="login"/>
+            <h:inputText id="login" value="#{oubliMotDePasseController.nomLogin}" 
+                         title="#{bundle.idTitle}" required="true" 
+                         requiredMessage="#{bundle.idRequiredMessage}"
+                         validator="#{oubliMotDePasseController.validateLogin}">
+            </h:inputText>
+            <h:message id="messageLogin" for="login" errorClass="erreur"/>
+            <br/>
+            <h:commandLink id="envoiEmailOubliMotDePasse"
+                           rendered="#{!oubliMotDePasseController.phase2}"
+                           action="#{oubliMotDePasseController.envoiEmail()}" 
+                           value="#{bundle.cliquerIciPourNouveauMotDepasse}"/>
+            <h:outputLabel value="Vous allez recevoir votre nouveau mot de passe par email.
+                           Vous pourrez changer ce mot de passe avec le menu
+                           'Gérer ses informations personnelles'." 
+                           rendered="#{oubliMotDePasseController.phase2}"/>
+            <br/>
+          </h:form>
+          <h:form>
+            <h:link 
+              rendered="#{oubliMotDePasseController.phase2}"
+              value="Entrer dans l'application" 
+              outcome="/login/formations/informationsPerso" />
+          </h:form>
+        </f:view>
+
+      </ui:define>
+
+    </ui:composition>
+
+  </body>
+</html>

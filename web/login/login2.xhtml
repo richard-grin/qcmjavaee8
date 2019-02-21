@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+  <body>
+
+    <ui:composition template="./formations/templateBase.xhtml">
+
+      <ui:define name="content">
+        <h:form>
+          <h:messages/>
+          <h:panelGrid columns="2">
+            <h:outputLabel value="#{bundle.identifiant}" for="id" />
+            <h:inputText id="id" value="#{accueilController.id}" title="#{bundle.idTitle}" required="true" 
+                         requiredMessage="#{bundle.idRequiredMessage}"/>
+            <h:outputLabel value="#{bundle.motDePasse}" for="mdp" />
+            <h:inputSecret id="mdp" value="#{accueilController.mdp}" title="#{bundle.mdpTitle}" required="true" 
+                         requiredMessage="#{bundle.mdpRequiredMessage}"/>
+            <h:panelGroup/>
+            <h:commandButton action=""
+                             value="#{bundle.entrer}"/>
+          </h:panelGrid>
+          <!-- Cas où l'utilisateur a oublié son mot de passe
+               ou n'a pas encore de compte. -->
+          <h:panelGrid columns="2">
+            <h:outputLabel value="#{bundle.oubliMotDePasse}" for="mdp" />
+            <h:commandLink action="#{accueilController.oubliMotDePasse()}" 
+                           value="#{bundle.cliquerIci}" immediate="true"/>
+            <h:outputLabel value="#{bundle.pasDeCompte}" for="mdp" />
+            <h:commandLink action="#{accueilController.inscription()}" 
+                           value="#{bundle.cliquerIci}" immediate="true"/>
+          </h:panelGrid>
+        </h:form>  
+      </ui:define>
+
+    </ui:composition>
+
+  </body>
+</html>

@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+  <body>
+
+    <ui:composition template="/WEB-INF/templates/template.xhtml">
+      <ui:define name="metadata">
+        <f:metadata>
+          <f:viewParam name="idQuestion" value="#{ajoutQuestion.questionEnCours}" />
+        </f:metadata>
+      </ui:define>
+
+      <ui:define name="content">
+        <h:form>
+          <h1><h:outputText value="Voir une question"/></h1>
+          <h:messages globalOnly="true" infoClass="info" />
+          <h:panelGrid columns="3">
+            <h:outputLabel value="Enonce:" for="enonce" />
+            <h:inputTextarea id="enonce" value="#{ajoutQuestion.questionEnCours.enonce}" title="Enonce" 
+                             readonly="true" cols="50" rows="#{ajoutQuestion.nbLignes(item.enonce, 50)}"
+                             />
+            <h:message for="enonce" />
+            <h:outputLabel value="Mots clés:" for="motsCles" />
+            <h:outputText id="motsCles" value="#{ajoutQuestion.questionEnCours.motsCles}"
+                          title="Mots clés, séparés par des virgules" />
+            <h:message for="motsCles" />
+            <h:outputLabel value="Id:" for="id" />
+            <h:outputText id="id" value="#{ajoutQuestion.questionEnCours.id}" title="Id" />
+            <h:message for="id" />
+          </h:panelGrid>
+          <br/>
+
+          <!-- Les réponses aux questions -->
+          <h:panelGroup rendered="#{ajoutQuestion.questionEnCours.reponses != null}">
+            <h3>Réponses à la question :</h3>
+            <p:dataTable id="tableReponses" value="#{ajoutQuestion.questionEnCours.reponses}"
+                         var="reponse" style="width:370px">
+              <p:column headerText="Texte de la réponse"
+                        style="width:300px">
+                <h:inputTextarea value="#{reponse.intitule}"
+                                 readonly="true"
+                                 cols="50"
+                                 rows="#{ajoutQuestion.nbLignes(reponse.intitule, 50)}"
+                                 />
+              </p:column>
+              <p:column headerText="Réponse correcte ?"
+                        style="width:30px">
+                <h:selectBooleanCheckbox 
+                  value="#{reponse.ok}"
+                  readonly="true"
+                  onclick="return false;"
+                  />
+              </p:column>
+            </p:dataTable>
+          </h:panelGroup>
+          <br/><br/>
+          <h:link outcome="choixQuestions?idQuestionnaire" 
+                  value="Retour choix questions pour questionnaire" >
+            <f:param name="idQuestion" value="#{ajoutQuestion.questionEnCours.id}" />
+          </h:link>
+        </h:form>
+      </ui:define>
+
+    </ui:composition>
+
+  </body>
+</html>

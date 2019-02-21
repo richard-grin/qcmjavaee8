@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+  <body>
+
+    <ui:composition template="/WEB-INF/templates/template.xhtml">
+
+      <ui:define name="metadata">
+        <f:metadata>
+          <f:viewParam name="idQuestion" value="#{ajoutQuestion.questionEnCours}" />
+          <f:event listener="#{ajoutQuestion.initQuestion()}" type="preRenderView" />
+        </f:metadata>
+      </ui:define>
+
+      <ui:define name="content">
+        <h:form id="form" >
+          <h1><h:outputText value="Ajouter / Modifier une question"/></h1>
+          <h:messages globalOnly="true" infoClass="info" />
+          <h:panelGrid columns="3">
+            <h:outputLabel value="Enonce:" for="enonce" />
+            <h:inputTextarea id="enonce" value="#{ajoutQuestion.questionEnCours.enonce}" title="Enonce" 
+                             required="true" requiredMessage="Vous devez donner l'énoncé de la question" />
+            <h:message for="enonce" />
+            <h:outputLabel value="MotsCles:" for="motsCles" />
+            <h:inputText id="motsCles" value="#{ajoutQuestion.questionEnCours.motsCles}"
+                         title="Mots clés, séparés par des virgules" />
+            <h:message for="motsCles" />
+            <h:outputLabel value="Id:" for="id" />
+            <h:inputText id="id" value="#{ajoutQuestion.questionEnCours.id}" title="Id"
+                         readonly="true" />
+            <h:message for="id" />
+          </h:panelGrid>
+          <br/>
+
+          <!-- Les réponses aux questions -->
+          <h:panelGroup id="panelReponses" rendered="#{ajoutQuestion.questionEnCours.reponses != null}">
+            <h3>Réponses à la question :</h3>
+            <h:dataTable id="tableReponses" value="#{ajoutQuestion.questionEnCours.reponses}"
+                         var="reponse">
+              <h:column>
+                <f:facet name="header">Texte de la réponse</f:facet>
+                <h:inputTextarea value="#{reponse.intitule}" cols="80"/>
+              </h:column>
+              <h:column>
+                <f:facet name="header">Réponse correcte ?</f:facet>
+                <h:selectBooleanCheckbox value="#{reponse.ok}"/>
+              </h:column>
+              <h:column>
+                <h:commandButton value="Supprimer cette réponse"
+                                 action="#{ajoutQuestion.supprimerReponse(reponse)}" >
+                  <f:ajax execute="@form" render="@form" />
+                </h:commandButton>
+              </h:column>
+            </h:dataTable>
+          </h:panelGroup>
+          <h:commandLink action="#{ajoutQuestion.ajouterReponse}" value="Ajouter une réponse">
+            <f:ajax execute="tableReponses" render="tableReponses" />
+          </h:commandLink>
+
+          <br/><br/>
+          <h:commandButton action="#{ajoutQuestion.enregistrer(true)}" value="Enregistrer" 
+                           title="Enregistrer la question et ses réponses"/>
+          <h:commandButton action="#{ajoutQuestion.enregistrer(false)}" value="Enregistrer et voir la liste des questions"
+                           title="Enregistrer la question et ses réponses et afficher ensuite la liste des questions"/>
+          <br/>
+          <h:commandButton type="reset" immediate="true" value="Reset" 
+                           action="#{ajoutQuestion.reset}"/>
+          <br/><br/>
+          <h:link outcome="listeQuestions" value="Afficher toutes les questions (sans enregistrer)" />
+        </h:form>
+      </ui:define>
+
+    </ui:composition>
+
+  </body>
+</html>
