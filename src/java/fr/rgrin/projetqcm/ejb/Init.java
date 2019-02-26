@@ -61,11 +61,11 @@ public class Init {
   @PostConstruct
   @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
   public void init() {
-    creationTables();
+//    creationTables();
     ajoutDonnees();
   }
   
-  @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+//  @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
   private void creationTables() {
     System.out.println("************************INIT !!!!!!!!!!!!!");
     // Création de la vue qui sert pour le domaine de sécurité
@@ -123,7 +123,7 @@ public class Init {
     }
   }
   
-  @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+//  @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
   private void ajoutDonnees() {
     System.out.println("Début ajout des logins===========");
     // Insertion des comptes utilisateur
