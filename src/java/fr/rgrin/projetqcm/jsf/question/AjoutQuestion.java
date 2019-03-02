@@ -8,18 +8,18 @@ import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
 import javax.faces.event.AjaxBehaviorEvent;
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
 
 /**
  *
  * @author richard
  */
 // TODO: A passer en Viewscoped CDI dès que possible
-@ManagedBean
+@Named
 @ViewScoped
 public class AjoutQuestion implements Serializable {
 

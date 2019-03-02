@@ -35,6 +35,12 @@ public class Questionnaire implements Serializable {
    * Le thème du questionnaire. Permet de classer les questionnaires.
    */
   private String theme;
+  
+    /**
+   * Mots-clés pour la recherche de questionnaires. 
+   * Séparateur : le point virgule.
+   */
+  private String motsCles;
 
   public Questionnaire() {
   }
@@ -109,10 +115,17 @@ public class Questionnaire implements Serializable {
   public void setTheme(String theme) {
     this.theme = theme;
   }
+  
+    public String getMotsCles() {
+    return motsCles;
+  }
+
+  public void setMotsCles(String motsCles) {
+    this.motsCles = motsCles;
+  }
 
   /**
    * Ajoute une question au questionnaire.
-   * Gère les 2 bouts de l'association.
    * @param question question qui est ajoutée.
    */
   public void ajouterQuestion(Question question) {

@@ -6,7 +6,6 @@ import fr.rgrin.projetqcm.entite.Questionnaire;
 import fr.rgrin.projetqcm.jsf.question.ListeQuestions;
 import fr.rgrin.projetqcm.jsf.question.QuestionDataModel;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.ejb.EJB;

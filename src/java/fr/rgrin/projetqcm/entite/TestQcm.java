@@ -1,5 +1,6 @@
 package fr.rgrin.projetqcm.entite;
 
+import fr.rgrin.login.entite.Login;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,27 +19,28 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- * Test d'un QCM passé par un utilisateur.
- * TODO: ajouter l'utilisateur qui a passé le test quand le login
- * aura été implanté.
+ * Test d'un QCM passé par un utilisateur. TODO: ajouter l'utilisateur qui a
+ * passé le test quand le login aura été implanté.
+ *
  * @author richard
  */
 @Entity
-@NamedQuery(name="testQcm.findToutQuestionnaireById",
-        query="select q, r, t, rt "
+@NamedQuery(name = "testQcm.findToutQuestionnaireById",
+        query = "select q, r, t, rt "
         + "from ReponseTest rt join rt.testQcm t join t.questionnaire.questions q join q.reponses r "
         + "where r.id = rt.reponse.id and rt.testQcm.id = :idTest "
         + "  and t.id = :idTest "
         + "order by index(q), index(r)")
 public class TestQcm implements Serializable {
+
   @Id
   @GeneratedValue
   private long id;
-  
+
   /**
    * La note obtenue, avec 2 décimales.
    */
-  @Column(scale=2)
+  @Column(scale = 2)
   private double note;
   /**
    * Le questionnaire testé.
@@ -46,30 +48,33 @@ public class TestQcm implements Serializable {
   @ManyToOne
   private Questionnaire questionnaire;
 
-  public Questionnaire getQuestionnaire() {
-    return this.questionnaire;
-  }
-
-  public void setQuestionnaire(Questionnaire questionnaire) {
-    System.out.println("***** TestQcm.setQuestionnaire - met ce questionnaire dans testQcm :" + questionnaire);
-    this.questionnaire = questionnaire;
-    System.out.println("****** Fin de TestQcm.setQuestionnaire - testQcm =" + this);
-  }
-  
-  @OneToMany(mappedBy="testQcm", cascade=CascadeType.ALL, orphanRemoval = true)
+  @OneToMany(mappedBy = "testQcm", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<ReponseTest> reponsesTests = new ArrayList<>();
-  
+
   /**
    * Date du test
    */
   @Temporal(TemporalType.DATE)
   private Date date;
-  
+
   @Temporal(TemporalType.TIME)
   private Date heure;
+
+  // IMPOSSIBLE car Login n'est pas dans la même unité de persistance
+//  @ManyToOne
+//  private Login nomLogin;
+  // La solution enregistrer le nom de nomLogin et gérer soi-même l'association
+  // par des requêtes JPQL.
+  private String nomLogin;
+
+  public TestQcm() {
+  }
   
-  public TestQcm() { }
-  
+  public TestQcm(Questionnaire questionnaire, String nomLogin) {
+    this(questionnaire);
+    
+  }
+
   public TestQcm(Questionnaire questionnaire) {
     this.questionnaire = questionnaire;
     this.date = new Date();
@@ -86,15 +91,33 @@ public class TestQcm implements Serializable {
 //    }
     // FIN POUR DEBUG ============
   }
-  
+
   public void ajouterReponseTest(ReponseTest reponseTest) {
     this.reponsesTests.add(reponseTest);
+  }
+
+  public String getNomLogin() {
+    return nomLogin;
+  }
+
+  public void setNomLogin(String nomLogin) {
+    this.nomLogin = nomLogin;
+  }
+
+  public Questionnaire getQuestionnaire() {
+    return this.questionnaire;
+  }
+
+  public void setQuestionnaire(Questionnaire questionnaire) {
+    System.out.println("***** TestQcm.setQuestionnaire - met ce questionnaire dans testQcm :" + questionnaire);
+    this.questionnaire = questionnaire;
+    System.out.println("****** Fin de TestQcm.setQuestionnaire - testQcm =" + this);
   }
 
   public void setNote(double note) {
     this.note = note;
   }
-  
+
   public double getNote() {
     return note;
   }
@@ -114,25 +137,24 @@ public class TestQcm implements Serializable {
   public List<ReponseTest> getReponsesTest() {
     return reponsesTests;
   }
-  
+
   /**
-   * @return retourne une copie du questionnaire associé à ce test,
-   * avec les réponses de l'utilisateur mises
-   * au bon endroit (dans la réponse associée).
+   * @return retourne une copie du questionnaire associé à ce test, avec les
+   * réponses de l'utilisateur mises au bon endroit (dans la réponse associée).
    */
   public Questionnaire getQuestionnaireAvecReponsesUtilisateur() {
     Questionnaire questionnaireSansReponseUtilisateur = this.questionnaire;
     // On met les réponses de l'utilisateur dans une map avec les id
     // des Reponse comme clé.
     List<ReponseTest> listeReponses = this.getReponsesTest();
-    Map<Long,ReponseTest> mapReponsesUtilisateur = new HashMap<>();
+    Map<Long, ReponseTest> mapReponsesUtilisateur = new HashMap<>();
     for (ReponseTest reponseUtilisateur : listeReponses) {
       mapReponsesUtilisateur.put(reponseUtilisateur.getReponse().getId(), reponseUtilisateur);
     }
     System.out.println("******Les réponses de l'utilisateur : " + listeReponses);
     // Faire une copie du questionnaire avec les réponses au bon endroit
-    Questionnaire questionnaireAvecReponsesUtilisateur = 
-            new Questionnaire(questionnaireSansReponseUtilisateur, mapReponsesUtilisateur);
+    Questionnaire questionnaireAvecReponsesUtilisateur
+            = new Questionnaire(questionnaireSansReponseUtilisateur, mapReponsesUtilisateur);
     System.out.println("questionnaireAvecReponsesUtilisateur = " + questionnaireAvecReponsesUtilisateur);
     return questionnaireAvecReponsesUtilisateur;
   }
@@ -164,7 +186,5 @@ public class TestQcm implements Serializable {
     }
     return true;
   }
-  
-  
-  
+
 }

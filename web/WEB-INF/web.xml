@@ -48,7 +48,7 @@
   <security-constraint>
     <web-resource-collection>
       <web-resource-name>Tests questionnaires</web-resource-name>
-      <url-pattern>/testQuestionnaire2/*</url-pattern>
+      <url-pattern>/testQuestionnaire/*</url-pattern>
     </web-resource-collection>
     <auth-constraint>
       <role-name>enseignant</role-name>

@@ -5,10 +5,11 @@
 package fr.rgrin.projetqcm.ejb;
 
 import fr.rgrin.projetqcm.entite.Questionnaire;
-import javax.annotation.sql.DataSourceDefinition;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -26,6 +27,14 @@ public class QuestionnaireFacade extends AbstractFacade<Questionnaire> {
 
   public QuestionnaireFacade() {
     super(Questionnaire.class);
+  }
+  
+  public Questionnaire findAvecQuestions(long id) {
+    TypedQuery<Questionnaire> query = em.createQuery("select q from Questionnaire q join fetch q.questions where q.id = :id", Questionnaire.class);
+    query.setParameter("id", id);
+    Questionnaire questionnaire = query.getSingleResult();
+    System.out.println("FACADE --- le questionnaire a " + questionnaire.getQuestions().size() + " questions !!!!!!!");
+    return questionnaire;
   }
   
 }

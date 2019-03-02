@@ -5,6 +5,7 @@ import fr.rgrin.projetqcm.entite.Question;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.EJB;
 import javax.faces.model.ListDataModel;
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -16,7 +17,9 @@ import org.primefaces.model.SelectableDataModel;
  * @author richard
  */
 public class QuestionDataModel extends ListDataModel<Question> implements SelectableDataModel<Question> {
-  private QuestionFacade questionFacade = lookupQuestionFacadeBean();
+//  private QuestionFacade questionFacade = lookupQuestionFacadeBean();
+  @EJB
+  private QuestionFacade questionFacade;
   
   public QuestionDataModel() {
   }

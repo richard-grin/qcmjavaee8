@@ -11,13 +11,12 @@ import fr.rgrin.projetqcm.evaluation.EvaluateurNoteQcm;
 import fr.rgrin.projetqcm.evaluation.EvaluateurSimple;
 import fr.rgrin.projetqcm.util.Divers;
 import java.io.Serializable;
+import java.security.Principal;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.context.Flash;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -42,15 +41,13 @@ public class TestQuestionnaire implements Serializable {
   private TestQcmFacade testQcmFacade;
   @EJB
   private QuestionnaireFacade questionnaireFacade;
+  @Inject
+  private Principal principal;
   /**
    * L'entité utilisée pour conserver les réponses aux questions et les
    * informations sur le test en cours.
    */
   private TestQcm testQcm;
-
-  public TestQcm getTestQcm() {
-    return this.testQcm;
-  }
 
 //  public void setTestQcm(TestQcm testQcm) {
 //    this.testQcm = testQcm;
@@ -104,21 +101,30 @@ public class TestQuestionnaire implements Serializable {
 //  public boolean isBoutonFinUtilisable() {
 //    return numeroQuestion == questionnaire.getQuestions().size() - 1;
 //  }
+  
+  public TestQcm getTestQcm() {
+    return this.testQcm;
+  }
+
   /**
    * Exécuté au démarrage du test.
    */
   public void demarrerQcm() {
 //    System.out.println("Backing bean " + this);
 //    System.out.println("=====Questionnaire =" + questionnaire);
+//    System.out.println("demarrerQcm()");
     long idQuestionnaire = Long.parseLong(
             FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("idQuestionnaire"));
-    Questionnaire questionnaire = questionnaireFacade.find(idQuestionnaire);
+    System.out.println("=======idQuestionnaire=" + idQuestionnaire);
+    Questionnaire questionnaire = questionnaireFacade.findAvecQuestions(idQuestionnaire);
+    System.out.println("Le questionnaire récupéré a le titre " + questionnaire.getTitre() + " et a " + questionnaire.getQuestions().size() + " questions");
 //    System.out.println("=====Dans demarrerQcm - Questionnaire =" + questionnaire);
 //    System.out.println("backing bean =" + this);
 //    System.out.println("=+=+=+ FIN du questionnaire");
 ////    this.questionnaire = questionnaire;
 //    System.out.println("fin de demarrerQcm, création de TestQcm");
     this.testQcm = new TestQcm(questionnaire);
+    this.testQcm.setNomLogin(principal.getName());
 //    System.out.println("this.testQcm=" + this.testQcm);
 //    System.out.println("!!!conversation transient ? " + conversation.isTransient());
     if (conversation.isTransient()) {
@@ -148,7 +154,6 @@ public class TestQuestionnaire implements Serializable {
 //    System.out.println("=====Dans terminerQcm - Questionnaire =" + questionnaire);
 //    System.out.println("=+=+=+ FIN du questionnaire");
 //    System.out.println("Question 1=" + questionnaire.getQuestions().get(0));
-
     // Calcul de la note
     EvaluateurNoteQcm evaluateur = new EvaluateurSimple();
     double note = evaluateur.calculNote(questionnaire);
@@ -210,8 +215,8 @@ public class TestQuestionnaire implements Serializable {
     for (Question question : questions) {
       List<Reponse> reponses = question.getReponses();
       for (Reponse reponse : reponses) {
-        ReponseTest reponseTest =
-                new ReponseTest(testQcm, reponse, reponse.getReponseUtilisateur());
+        ReponseTest reponseTest
+                = new ReponseTest(testQcm, reponse, reponse.getReponseUtilisateur());
       }
     }
     testQcmFacade.create(testQcm);
