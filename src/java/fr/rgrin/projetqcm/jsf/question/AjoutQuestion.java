@@ -76,6 +76,9 @@ public class AjoutQuestion implements Serializable {
 //    questionEnCours = new Question();
   }
 
+  /**
+   * Enregistrer une nouvelle question, avec Ajax.
+   */
   public void enregistrerAjax() {
     System.out.println("enregistrerAjax");
     questionEnCours.setReponses(reponses);

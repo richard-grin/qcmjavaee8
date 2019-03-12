@@ -1,8 +1,5 @@
 package fr.rgrin.projetqcm.ejb;
 
-import fr.rgrin.projetqcm.entite.Question;
-import fr.rgrin.projetqcm.entite.Questionnaire;
-import fr.rgrin.projetqcm.entite.Reponse;
 import fr.rgrin.projetqcm.util.HashMdp;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -10,7 +7,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Arrays;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -20,9 +16,7 @@ import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
+import javax.mail.MailSessionDefinition;
 import javax.sql.DataSource;
 
 /**
@@ -51,18 +45,26 @@ import javax.sql.DataSource;
           databaseName = "qcm_javaEE8"
   )
 })
+@MailSessionDefinition(
+        name = "java:app/mail/free",
+        host = "smtp.free.fr",
+        user = "richard.grin",
+        from = " richard.grin@free.fr",
+        storeProtocol = "imap",
+         transportProtocol = "smtp"
+)
 @Singleton
 @Startup
 public class Init {
 
-  @PersistenceContext(unitName = "loginPU")
-  private EntityManager emLogin;
+//  @PersistenceContext(unitName = "loginPU")
+//  private EntityManager emLogin;
 
   @Resource(lookup = "java:app/jdbc/login_javaEE8")
   private DataSource dataSourceLogin;
 
-  @PersistenceContext(unitName = "qcmPU")
-  private EntityManager emQcm;
+//  @PersistenceContext(unitName = "qcmPU")
+//  private EntityManager emQcm;
 
   @Resource(lookup = "java:app/jdbc/qcm_javaEE8")
   private DataSource dataSourceQcm;
@@ -235,14 +237,6 @@ public class Init {
       e.printStackTrace();
     }
   }
-
-//  /**
-//   * Retourne le nombre de questions enregistrées dans la base de données.
-//   */
-//  private long nbQuestions() {
-//    TypedQuery<Long> q = emQcm.createQuery("select count(q) from Question q", Long.class);
-//    return q.getSingleResult();
-//  }
 
   /**
    * Exécute des requêtes SQL de création ou suppression de table ou d'insertion

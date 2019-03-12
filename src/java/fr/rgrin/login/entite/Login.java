@@ -16,11 +16,11 @@ import javax.persistence.NamedQuery;
  * Utilisateur de l'application.
  * @author richard
  */
-@NamedQueries({
   @NamedQuery(name = "Login.findByEmail",
-          query = "SELECT l FROM Login l where l.email = :email"),
+          query = "SELECT l FROM Login l where l.email = :email")
   @NamedQuery(name = "Login.getAll", query = "select l from Login l")
-})
+  @NamedQuery(name = "Login.findByNom", 
+          query = "select l from Login l where l.login = :nomLogin")
 @Entity
 public class Login implements Serializable {
 
@@ -58,4 +58,17 @@ public class Login implements Serializable {
     this.groupes.add(groupe);
     groupe.addUtilisateur(this);
   }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  public void setMotDePasse(String motDePasse) {
+    this.motDePasse = motDePasse;
+  }
+  
 }

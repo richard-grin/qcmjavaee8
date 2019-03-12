@@ -39,7 +39,7 @@ public class LoginFacade extends AbstractFacade<Login> {
   
   public Login findByNom(String nom) {
     Query query = em.createNamedQuery("Login.findByNom");
-    query.setParameter("nom", nom);
+    query.setParameter("nomLogin", nom);
     return (Login)query.getSingleResult();
   }
 

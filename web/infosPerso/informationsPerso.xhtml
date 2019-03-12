@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+  <body>
+
+    <ui:composition template="/WEB-INF/templates/template.xhtml">
+
+      <ui:define name="content">
+        <f:view>
+          <h:form>
+            <h1><h:outputText value="Edit login information"/></h1>
+            <h:panelGrid id="panelGrid" columns="2">
+              <h:outputLabel value="Login (read only):" for="login" />
+              <h:inputText id="login" 
+                           value="#{infosPersoController.login.login}" 
+                           title="Login" readonly="true"/>
+              <h:outputLabel value="Email:" for="email" />
+              <h:panelGroup>
+              <h:inputText id="email" value="#{infosPersoController.login.email}" 
+                           title="Email" 
+                           valueChangeListener="#{infosPersoController.changementEmail}"/>
+              <h:message for="email" errorClass="erreur"/>
+              
+              </h:panelGroup>
+
+              <strong>Si vous voulez changer<br/> de mot de passe,<br/>
+              tapez 2 fois le nouveau<br/> mot de passe,<br/> sinon laissez les
+              champs vides :</strong>
+
+              <h:panelGroup/>
+
+              <h:outputLabel value="Mot de passe:" for="motDePasse" />
+              <h:inputSecret id="motDePasse"
+                           value="#{infosPersoController.motDePasse}" 
+                           title="MotDePasse" />
+              <h:outputLabel value="Retaper le mot de passe:" for="motDePasse2" />
+              <h:panelGroup>
+                <h:inputSecret id="motDePasse2"
+                             value="#{infosPersoController.motDePasse2}" 
+                             title="MotDePasse"
+                             validator="#{infosPersoController.validateMotsDePasse}">
+                  <ui:remove>
+                  <f:ajax event="blur" execute="@this motDePasse" render="messageMdp2"/>
+                  </ui:remove>
+                </h:inputSecret>
+                <h:message id="messageMdp2" for="motDePasse2" errorClass="erreur"/>
+              </h:panelGroup>
+
+            </h:panelGrid>
+            <h:commandButton value="Enregistrer les modifications"
+                             action="#{infosPersoController.enregistrerModifsLogin}"/>
+            <h:messages infoStyle="color:green; font-weight:bold" 
+                        rendered="#{infosPersoController.editLogin}"/>
+          </h:form>
+
+        </f:view>
+
+      </ui:define>
+
+    </ui:composition>
+
+  </body>
+</html>

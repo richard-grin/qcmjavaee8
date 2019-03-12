@@ -47,7 +47,6 @@ public class LoginBean {
 
 //  @Inject
 //  private LoginFacade loginFacade;
-
   private String nom;
   private String motDePasse;
 
@@ -143,6 +142,15 @@ public class LoginBean {
             new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     message,
                     null));
+  }
+
+  /**
+   * Exécuté quand l'utilisateur a oublié son mot de passe.
+   *
+   * @return
+   */
+  public String oubliMotDePasse() {
+    return "/login/oubliMotDePasse";
   }
 
 }

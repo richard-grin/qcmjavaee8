@@ -4,6 +4,11 @@
     <param-name>javax.faces.PROJECT_STAGE</param-name>
     <param-value>Development</param-value>
   </context-param>
+  <context-param>
+    <param-name>fr.unice.EMAIL_JNDI_NAME</param-name>
+    <param-value>java:app/mail/free</param-value>
+  </context-param>
+  
   <session-config>
     <session-timeout>
       30
@@ -13,7 +18,7 @@
     <welcome-file>index.xhtml</welcome-file>
   </welcome-file-list>
     
-    <!--
+  <!--
   <login-config>
     <auth-method>FORM</auth-method>
     <realm-name>loginsqcm</realm-name>
@@ -31,6 +36,17 @@
     <role-name>etudiant</role-name>
   </security-role>
   -->
+  
+  <!-- Changer ses informations personnelles si on est connecté. -->
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>Informations personnelles</web-resource-name>
+      <url-pattern>/infosPerso/*</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>**</role-name>
+    </auth-constraint>
+  </security-constraint>
   
   <!-- Gestion des questionnaires est réservée aux enseignants. -->
   <security-constraint>

@@ -70,7 +70,7 @@
           <br/><br/>
           <h:commandButton action="#{ajoutQuestion.enregistrer(true)}" value="Enregistrer" 
                            title="Enregistrer la question et ses réponses">
-            <f:ajax listener="#{ajoutQuestion.enregistrerAjax}" 
+            <f:ajax listener="#{ajoutQuestion.enregistrerAjax}" execute="@form"
                     render=":messages"/>
           </h:commandButton>
           <h:commandButton action="#{ajoutQuestion.enregistrer(false)}" value="Enregistrer et voir la liste des questions"
