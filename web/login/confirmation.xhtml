@@ -1,20 +1,20 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-  <ui:composition template="/formations/templateBase.xhtml">
+  <ui:composition template="/WEB-INF/templates/template.xhtml">
 
     <ui:define name="metadata">
       <f:event type="preRenderView"
-               listener="#{accueilController.verifierConfirmation}"/>
+               listener="#{confirmationController.verifierConfirmation}"/>
       <f:metadata>
-        <f:viewParam name="id" value="#{accueilController.loginConfirm}" />
-        <f:viewParam name="email" value="#{accueilController.emailConfirm}" />
-        <f:viewParam name="cle" value="#{accueilController.codeConfirm}" />
-        <f:viewAction action="#{accueilController.verifierConfirmation}"/>
+        <f:viewParam name="id" value="#{confirmationController.loginConfirm}" />
+        <f:viewParam name="email" value="#{confirmationController.emailConfirm}" />
+        <f:viewParam name="cle" value="#{confirmationController.codeConfirm}" />
+        <f:viewAction action="#{confirmationController.verifierConfirmation}"/>
       </f:metadata>
     </ui:define>
     <ui:define name="title">
@@ -52,11 +52,11 @@
         <h:panelGrid columns="2">
           <h:outputLabel value="#{bundle.oubliMotDePasse}" for="oubliMotDePasse" />
           <h:commandLink id="oubliMotDePasse"
-                         action="#{accueilController.oubliMotDePasse()}" 
+                         action="#{confirmationController.oubliMotDePasse()}" 
                          value="#{bundle.cliquerIci}" immediate="true"/>
           <h:outputLabel value="#{bundle.pasDeCompte}" for="NouveauCompte" />
           <h:commandLink id="NouveauCompte"
-                         action="#{accueilController.inscription()}" 
+                         action="#{confirmationController.inscription()}" 
                          value="#{bundle.cliquerIci}" immediate="true"/>
         </h:panelGrid>
       </h:form>

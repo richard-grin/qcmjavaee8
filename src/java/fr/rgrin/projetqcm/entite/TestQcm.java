@@ -69,10 +69,10 @@ public class TestQcm implements Serializable {
 
   public TestQcm() {
   }
-  
+
   public TestQcm(Questionnaire questionnaire, String nomLogin) {
     this(questionnaire);
-    
+
   }
 
   public TestQcm(Questionnaire questionnaire) {

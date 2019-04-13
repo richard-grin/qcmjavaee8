@@ -8,10 +8,12 @@ import javax.persistence.ManyToOne;
 
 /**
  * Reponse d'un utilisateur à une question pendant le test d'un questionnnaire.
+ *
  * @author richard
  */
 @Entity
 public class ReponseTest implements Serializable {
+
   @Id
   @GeneratedValue
   private long id;
@@ -19,7 +21,7 @@ public class ReponseTest implements Serializable {
    * Réponse de l'utilisateur (coche du choix, "ok" ou "pas ok").
    */
   private boolean valeurReponse;
-  
+
   /**
    * Le choix que l'utilisateur a coché ou non.
    */
@@ -30,10 +32,11 @@ public class ReponseTest implements Serializable {
    */
   @ManyToOne
   private TestQcm testQcm;
-  
-  public ReponseTest() { }
-  
-  public ReponseTest(TestQcm testQcm, Reponse reponse, 
+
+  public ReponseTest() {
+  }
+
+  public ReponseTest(TestQcm testQcm, Reponse reponse,
           boolean valeurReponse) {
     this.valeurReponse = valeurReponse;
     this.reponse = reponse;
@@ -57,5 +60,5 @@ public class ReponseTest implements Serializable {
   public TestQcm getTestQcm() {
     return testQcm;
   }
- 
+
 }

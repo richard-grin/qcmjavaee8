@@ -51,7 +51,7 @@ import javax.sql.DataSource;
         user = "richard.grin",
         from = " richard.grin@free.fr",
         storeProtocol = "imap",
-         transportProtocol = "smtp"
+        transportProtocol = "smtp"
 )
 @Singleton
 @Startup
@@ -59,13 +59,11 @@ public class Init {
 
 //  @PersistenceContext(unitName = "loginPU")
 //  private EntityManager emLogin;
-
   @Resource(lookup = "java:app/jdbc/login_javaEE8")
   private DataSource dataSourceLogin;
 
 //  @PersistenceContext(unitName = "qcmPU")
 //  private EntityManager emQcm;
-
   @Resource(lookup = "java:app/jdbc/qcm_javaEE8")
   private DataSource dataSourceQcm;
 
@@ -134,7 +132,7 @@ public class Init {
       // Si la table des logins n'existe pas déjà, créer les tables
       if (!existe(c, "LOGIN")) { // Attention, la casse compte !!!
         System.out.println("Création des tables");
-        // Remarque : la table SEQUENCE est créée automatiquement ; pas besoin de la créer
+        // Remarque : la table SEQUENCE est créée automatiquement si unité de persistance en mode "create" ; pas besoin de la créer
         execute(c, creationTableLoginSql);
         execute(c, creationTableGroupeSql);
         execute(c, creationTableLoginGroupeSql);
@@ -149,6 +147,9 @@ public class Init {
         // Le mot de passe haché :
         String hashMdp = passwordHash.generate("toto");
 //      System.out.println("******===== TAILLE mot de passe haché : " + hashMdp.length());
+
+        // Initialiation de la table SEQUENCE
+        execute(c, "INSERT INTO SEQUENCE(SEQ_NAME, SQQ_COUNT) VALUES('SEQ_GEN', 1)");
 
         // ric appartient aux groupes enseignant et etudiant (pour pouvoir tester)
         execute(c, "INSERT INTO login (LOGIN, MOT_DE_PASSE, email, statut) VALUES('ric', '"
@@ -221,7 +222,6 @@ public class Init {
 //      emQcm.persist(questionnaire);
 //    }
 //  }
-
   /**
    * Exécute une requête SQL de création ou suppression de table ou d'insertion
    * de données.

@@ -20,14 +20,15 @@ import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 import javax.naming.NamingException;
 
-
 /**
  * Backing bean pour la page oubliMotDePasse.xhtml.
+ *
  * @author richard
  */
 @Named(value = "oubliMotDePasseController")
 @RequestScoped
 public class OubliMotDePasseController {
+
   private String nomLogin;
   /**
    * Login qui correspond à ce nom de login.
@@ -37,16 +38,18 @@ public class OubliMotDePasseController {
    * true si on est dans la phase 2, après envoi du nouveau mot de passe.
    */
   private boolean phase2 = false;
-  
+
   @EJB
   private LoginFacade loginFacade;
   @Inject
   private HashMdp passwordHash;
-  
+
   @Inject
   private ExternalContext externalContext;
-  
-  /** Creates a new instance of OubliMotDePasseController */
+
+  /**
+   * Creates a new instance of OubliMotDePasseController
+   */
   public OubliMotDePasseController() {
   }
 
@@ -63,12 +66,12 @@ public class OubliMotDePasseController {
   }
 
   /**
-   * Envoyer un email à l'utilisateur qui a oublié son mot de passe
-   * avec un lien pour qu'il puisse saisir un nouveau mot de passe.
+   * Envoyer un email à l'utilisateur qui a oublié son mot de passe avec un lien
+   * pour qu'il puisse saisir un nouveau mot de passe.
    */
   public void envoiEmail() {
-    String motDePasseTemporaire = 
-            new GenerateurMotDePasse().genererMotDePasse();
+    String motDePasseTemporaire
+            = new GenerateurMotDePasse().genererMotDePasse();
     try {
       // Envoi de l'email
       String nomJNDIPourEmail = externalContext.getInitParameter("fr.unice.EMAIL_JNDI_NAME");
@@ -95,14 +98,15 @@ public class OubliMotDePasseController {
       Logger.getLogger(OubliMotDePasseController.class.getName()).log(Level.SEVERE, null, ex);
     }
   }
-  
+
   /**
    * Pour valider le nom de login saisi par l'utilisateur.
+   *
    * @param ctxt
    * @param composant
-   * @param valeur 
+   * @param valeur
    */
-  public void validateLogin(FacesContext ctxt, UIComponent composant, 
+  public void validateLogin(FacesContext ctxt, UIComponent composant,
           Object valeur) {
     // Vérifie que le login existe
     login = loginFacade.find(valeur);

@@ -10,16 +10,16 @@ import javax.inject.Named;
 
 /**
  * Backing bean pour la liste des questions.
+ *
  * @author richard
  */
 @Named
 @RequestScoped
 public class ListeQuestions {
+
   @EJB
   private QuestionFacade questionFacade;
   private List<Question> questions;
-  
-  
 
   public List<Question> getQuestions() {
     if (questions == null) {
@@ -27,12 +27,12 @@ public class ListeQuestions {
     }
     return questions;
   }
-  
+
   public String supprimerQuestion(Question question) {
     questionFacade.remove(question);
     return "?faces-redirect=true";
   }
-  
+
   public String supprimerQuestion() {
     // Récupére le paramètre
     String idQuestion = FacesContext.getCurrentInstance().getExternalContext()

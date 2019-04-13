@@ -12,16 +12,18 @@ import javax.persistence.OneToMany;
 
 /**
  * Un utilisateur de l'application.
+ *
  * @author richard
  */
 @Entity
 public class Utilisateur implements Serializable {
+
   @Id
   @GeneratedValue
   private Long id;
-  @Column(length=60)
+  @Column(length = 60)
   private String nom;
-  @Column(length=80)
+  @Column(length = 80)
   private String prenoms;
   @OneToMany
   private Set<Login> logins = new HashSet<>();
@@ -49,20 +51,22 @@ public class Utilisateur implements Serializable {
   public void setPrenoms(String prenoms) {
     this.prenoms = prenoms;
   }
+
   /**
    * Ajoute un login pour cet utilisateur.
+   *
    * @param login
-   * @return 
+   * @return
    */
   public boolean addLogin(Login login) {
     return logins.add(login);
   }
-  
+
   public boolean removeLogin(Login login) {
     return logins.remove(login);
   }
-  
-    @Override
+
+  @Override
   public int hashCode() {
     int hash = 0;
     hash += (id != null ? id.hashCode() : 0);

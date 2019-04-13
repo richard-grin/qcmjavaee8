@@ -47,15 +47,15 @@ public class ModifierQuestionnaire implements Serializable {
     System.out.println("+++++++++++++setQuestionnaireEnCours ; questionnaireEnCours=" + questionnaireEnCours);
     this.questionnaireEnCours = questionnaireEnCours;
   }
-  
-   public void setQuestionsChoisies(Question[] questionsChoisies) {
+
+  public void setQuestionsChoisies(Question[] questionsChoisies) {
     this.questionsChoisies = questionsChoisies;
   }
 
   public Question[] getQuestionsChoisies() {
     return questionsChoisies;
   }
-  
+
   public QuestionDataModel getQuestions() {
     // Sans doute plus simple d'utiliser directement QuestionFacade mais
     // je veux tester l'injection d'un autre backing bean.
@@ -102,7 +102,7 @@ public class ModifierQuestionnaire implements Serializable {
       return "listeQuestionnaires?faces-redirect=true";
     }
   }
-  
+
   public String enregistrer() {
     questionnaireEnCours.setQuestions(Arrays.asList(questionsChoisies));
     questionnaireFacade.edit(questionnaireEnCours);

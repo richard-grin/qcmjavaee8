@@ -6,16 +6,17 @@ package fr.rgrin.projetqcm.util;
 
 /**
  * Classe qui contient des méthodes utilitaires.
+ *
  * @author richard
  */
 public class Divers {
-  
+
   /**
-   * Compte le nombre de ligne d'un texte dont les lignes ont un nombre
-   * de caractères limités.
-   * Les lignes sont délimitées par '\n'.
+   * Compte le nombre de ligne d'un texte dont les lignes ont un nombre de
+   * caractères limités. Les lignes sont délimitées par '\n'.
+   *
    * @param texte
-   * @return 
+   * @return
    */
   public static int nbLignes(String texte, int nbMaxCaracteres) {
     String[] lignes = texte.split("\\n");
@@ -25,5 +26,5 @@ public class Divers {
     }
     return nbLignes;
   }
-  
+
 }

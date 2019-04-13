@@ -4,6 +4,7 @@ import java.util.Random;
 
 /**
  * Génère un mot de passe aléatoire.
+ *
  * @author richard
  */
 public class GenerateurMotDePasse {
@@ -11,8 +12,8 @@ public class GenerateurMotDePasse {
   /**
    * Les caractères acceptés dans le mot de passe.
    */
-  private String alphabet =
-          "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_-@#&'(!?)$%?:;/.?,";
+  private String alphabet
+          = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_-@#&'(!?)$%?:;/.?,";
   /**
    * Longueur du mot de passe.
    */
@@ -38,7 +39,7 @@ public class GenerateurMotDePasse {
     }
     return sb.toString();
   }
-  
+
   public static void main(String[] args) {
     GenerateurMotDePasse g = new GenerateurMotDePasse(8);
     for (int i = 0; i < 10; i++) {

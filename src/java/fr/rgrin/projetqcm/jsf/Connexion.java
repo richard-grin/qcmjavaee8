@@ -13,27 +13,29 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * Pour se déconnecter de la session.
+ *
  * @author richard
  */
 @Named
 @RequestScoped
 public class Connexion implements Serializable {
+
   // Juste pour tester l'injection de Principal
   @Inject
   private Principal principal;
-  
+
   public String deconnect() {
     System.out.println("********DECONNEXION !!!!");
     try {
-      ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).logout();
+      ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()).logout();
     } catch (ServletException ex) {
       Logger.getLogger(Connexion.class.getName()).log(Level.SEVERE, null, ex);
     }
     return "/index";
   }
-  
+
   public String getNomUtilisateur() {
     return principal.getName();
   }
-  
+
 }

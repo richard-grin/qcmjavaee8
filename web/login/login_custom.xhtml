@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
   <ui:composition template="/WEB-INF/templates/template.xhtml">
     <ui:define name="title">
@@ -34,13 +34,13 @@
                ou n'a pas encore de compte. -->
         <h:panelGrid columns="2">
           <h:outputLabel value="#{bundle.oubliMotDePasse}" for="oubliMotDePasse" />
-          <h:commandLink id="oubliMotDePasse"
-                         action="#{loginBean.oubliMotDePasse()}" 
-                         value="#{bundle.cliquerIci}" immediate="true"/>
+          <h:link id="oubliMotDePasse"
+                  outcome="/login/oubliMotDePasse"
+                  value="#{bundle.cliquerIci}"/>
           <h:outputLabel value="#{bundle.pasDeCompte}" for="NouveauCompte" />
-          <h:commandLink id="NouveauCompte"
-                         action="#{accueilController.inscription()}" 
-                         value="#{bundle.cliquerIci}" immediate="true"/>
+          <h:link id="NouveauCompte"
+                  outcome="/login/inscription" 
+                  value="#{bundle.cliquerIci}"/>
         </h:panelGrid>
       </h:form>
 

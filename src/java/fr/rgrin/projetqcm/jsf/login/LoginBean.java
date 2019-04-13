@@ -144,13 +144,16 @@ public class LoginBean {
                     null));
   }
 
-  /**
-   * Exécuté quand l'utilisateur a oublié son mot de passe.
-   *
-   * @return
-   */
-  public String oubliMotDePasse() {
-    return "/login/oubliMotDePasse";
-  }
-
+//  /**
+//   * Exécuté quand l'utilisateur a oublié son mot de passe.
+//   *
+//   * @return
+//   */
+//  public String oubliMotDePasse() {
+//    return "/login/oubliMotDePasse";
+//  }
+//
+//  public String inscription() {
+//    return "/login/inscription?faces-redirect=true";
+//  }
 }

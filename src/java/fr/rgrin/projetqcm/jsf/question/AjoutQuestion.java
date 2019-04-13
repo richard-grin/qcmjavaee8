@@ -67,7 +67,7 @@ public class AjoutQuestion implements Serializable {
     // Si ça n'est pas une requête Ajax
     System.out.println("pppppppppppppp isAjaxRequest=" + fc.getPartialViewContext().isAjaxRequest());
     System.out.println("ppppppppppppppppp isPostback = " + fc.isPostback());
-    if (! fc.getPartialViewContext().isAjaxRequest()) {
+    if (!fc.getPartialViewContext().isAjaxRequest()) {
       reponses = questionEnCours.getReponses();
     }
   }
@@ -156,7 +156,7 @@ public class AjoutQuestion implements Serializable {
             + reponses);
 //    questionEnCours.setReponses(reponses);
   }
-  
+
   public void testListener(AjaxBehaviorEvent event) {
     System.out.println("***testListener***");
   }

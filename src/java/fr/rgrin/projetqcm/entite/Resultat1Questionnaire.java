@@ -9,15 +9,17 @@ import javax.persistence.TemporalType;
 
 /**
  * Le résultat d'un questionnaire.
+ *
  * @author richard
  */
 @Entity
 public class Resultat1Questionnaire {
+
   @Id
   @GeneratedValue
   private long id;
   @Temporal(TemporalType.DATE)
   private Date date;
   private Questionnaire questionnaire;
-  
+
 }

@@ -15,6 +15,7 @@ import javax.faces.convert.FacesConverter;
  */
 @FacesConverter(forClass = Question.class, managed = true)
 public class QuestionConverter implements Converter<Question> {
+
   @EJB
   QuestionFacade ejb;
 

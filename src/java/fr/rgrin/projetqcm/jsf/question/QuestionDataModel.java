@@ -18,12 +18,13 @@ import org.primefaces.model.SelectableDataModel;
  */
 public class QuestionDataModel extends ListDataModel<Question> implements SelectableDataModel<Question> {
 //  private QuestionFacade questionFacade = lookupQuestionFacadeBean();
+
   @EJB
   private QuestionFacade questionFacade;
-  
+
   public QuestionDataModel() {
   }
-  
+
   public QuestionDataModel(List<Question> questions) {
     super(questions);
   }
@@ -48,5 +49,5 @@ public class QuestionDataModel extends ListDataModel<Question> implements Select
       throw new RuntimeException(ne);
     }
   }
-  
+
 }

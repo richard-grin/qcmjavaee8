@@ -9,39 +9,37 @@ import javax.persistence.Id;
 import javax.persistence.Transient;
 
 /**
- * Une réponse possible pour une question.
- * Inclut aussi la réponse d'un utilisateur pour faciliter la gestion
- * des réponses des utilisateurs.
+ * Une réponse possible pour une question. Inclut aussi la réponse d'un
+ * utilisateur pour faciliter la gestion des réponses des utilisateurs.
  */
 @Entity
 public class Reponse implements Serializable {
+
   @Id
   @GeneratedValue
   private Long id;
-  
+
   /**
    * Intitulé de cette réponse.
    */
   private String intitule;
   /**
-   * Vrai si et seulement si la réponse doit être "cochée" pour donner
-   * une bonne réponse à la question.
-   * Un bug de Java DB (ou du driver pour Java DB) 
-   * fait que ça ne marche pas avec boolean.
-   * Ca marche maintenant dans la version actuelle.
+   * Vrai si et seulement si la réponse doit être "cochée" pour donner une bonne
+   * réponse à la question. Un bug de Java DB (ou du driver pour Java DB) fait
+   * que ça ne marche pas avec boolean. Ca marche maintenant dans la version
+   * actuelle.
    */
 //  private boolean ok;
   private char ok;
   /**
-   * Réponse d'un utilisateur.
-   * Vrai si la réponse a été cochée par l'utilisateur.
-   * Pas enregistré dans la base de données sous cette forme
-   * (voir 
+   * Réponse d'un utilisateur. Vrai si la réponse a été cochée par
+   * l'utilisateur. Pas enregistré dans la base de données sous cette forme
+   * (voir
    */
   //@Column(name="REPONSE_UTILISATEUR")
   @Transient
   private char reponseUtilisateur;
-  
+
   public Reponse() {
   }
 
@@ -51,11 +49,11 @@ public class Reponse implements Serializable {
     this.intitule = intitule;
     setOk(ok);
   }
-  
+
   public Long getId() {
     return id;
   }
-  
+
   public String getIntitule() {
     return intitule;
   }
@@ -67,7 +65,7 @@ public class Reponse implements Serializable {
   public void setOk(boolean ok) {
     this.ok = (ok == true) ? 'o' : 'n';
   }
-  
+
   public boolean isOk() {
     return ok == 'o';
   }
@@ -81,7 +79,7 @@ public class Reponse implements Serializable {
     this.reponseUtilisateur = (reponseUtilisateur == true) ? 'o' : 'n';
     System.out.println("+++reponseUtilisateur=" + reponseUtilisateur);
   }
-  
+
   @Override
   public String toString() {
     return "Reponse " + " - " + super.toString() + " - [id=" + id + ", intitule=||" + intitule + "||, ok=" + ok + ", reponseUtilisateur=" + reponseUtilisateur + "]";

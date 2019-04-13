@@ -11,6 +11,7 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class ReponseFacade extends AbstractFacade<Reponse> {
+
   @PersistenceContext(unitName = "qcmPU")
   private EntityManager em;
 
@@ -22,5 +23,5 @@ public class ReponseFacade extends AbstractFacade<Reponse> {
   public ReponseFacade() {
     super(Reponse.class);
   }
-  
+
 }

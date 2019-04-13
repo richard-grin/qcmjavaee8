@@ -10,10 +10,10 @@ import javax.persistence.Id;
  */
 @Entity
 public class Resultat1Question {
+
   @Id
   @GeneratedValue
   private long id;
   private Question question;
-  
-  
+
 }

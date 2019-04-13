@@ -21,9 +21,9 @@ import javax.security.enterprise.SecurityContext;
  * Backing bean pour la page informationsPerso.xhtml qui gère les infos sur le
  * login : email, mot de passe, infos sur la personne qui correspond à cet
  * email.
- * 
- * Remarque : la portée request suffit puisqu'on récupère le login actuel
- * à chaque création d'un nouveau bean.
+ *
+ * Remarque : la portée request suffit puisqu'on récupère le login actuel à
+ * chaque création d'un nouveau bean.
  *
  * @author richard
  */
@@ -34,7 +34,7 @@ public class InfosPersoController implements Serializable {
 
   @Inject
   private Principal principal;
-  
+
   private Login login;
   // true si on vient d'éditer les infos sur le login (mot de passe ou email)
   // Utilisé pour savoir quels messages on doit afficher dans la page.
@@ -194,7 +194,6 @@ public class InfosPersoController implements Serializable {
 //    FacesContext.getCurrentInstance().addMessage(null, message);
 //    return "informationsPerso";
 //  }
-
   public void changementEmail(ValueChangeEvent event) {
     changementEmail = true;
   }

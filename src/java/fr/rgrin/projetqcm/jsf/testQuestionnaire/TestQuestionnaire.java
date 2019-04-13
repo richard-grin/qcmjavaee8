@@ -101,7 +101,6 @@ public class TestQuestionnaire implements Serializable {
 //  public boolean isBoutonFinUtilisable() {
 //    return numeroQuestion == questionnaire.getQuestions().size() - 1;
 //  }
-  
   public TestQcm getTestQcm() {
     return this.testQcm;
   }

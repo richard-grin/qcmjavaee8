@@ -6,25 +6,27 @@ import fr.rgrin.projetqcm.entite.Reponse;
 import java.util.List;
 
 /**
- * Evaluateur simple de la note relative à un test de questionnaire.
- * 1 point par question si toutes les réponses sont bonnes.
- * La note à un questionnaire est la somme des notes obtenues aux questions.
+ * Evaluateur simple de la note relative à un test de questionnaire. 1 point par
+ * question si toutes les réponses sont bonnes. La note à un questionnaire est
+ * la somme des notes obtenues aux questions.
+ *
  * @author richard
  */
-public class EvaluateurSimple  implements EvaluateurNoteQcm {
+public class EvaluateurSimple implements EvaluateurNoteQcm {
+
   /**
-   * Le questionnaire testé.
-   * Il contient aussi les réponses de l'utilisateur car l'entité
-   * Reponse en garde les traces.
+   * Le questionnaire testé. Il contient aussi les réponses de l'utilisateur car
+   * l'entité Reponse en garde les traces.
    */
 //  private Questionnaire questionnaire;
-  
+
   /**
-   * Retourne la note du questionnaire sur 20.
-   * Chaque question peut rapporter 1 point sur 1 si toutes les réponses
-   * sont bien cochées. Sinon, elle rapporte 0 point.
+   * Retourne la note du questionnaire sur 20. Chaque question peut rapporter 1
+   * point sur 1 si toutes les réponses sont bien cochées. Sinon, elle rapporte
+   * 0 point.
+   *
    * @param questionnaire
-   * @return 
+   * @return
    */
   @Override
   public double calculNote(Questionnaire questionnaire) {
@@ -37,9 +39,9 @@ public class EvaluateurSimple  implements EvaluateurNoteQcm {
 //      System.out.println("==== Dans calculNote - pour question=" + question);
       somme += pointPourQuestion(question);
     }
-    return (double)somme / questions.size() * 20;
+    return (double) somme / questions.size() * 20;
   }
-  
+
   private int pointPourQuestion(Question question) {
     List<Reponse> reponses = question.getReponses();
     for (Reponse reponse : reponses) {
@@ -54,5 +56,5 @@ public class EvaluateurSimple  implements EvaluateurNoteQcm {
     }
     return 1;
   }
-  
+
 }

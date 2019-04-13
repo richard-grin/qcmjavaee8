@@ -35,27 +35,26 @@ public class TestQcmFacade extends AbstractFacade<TestQcm> {
   public TestQcmFacade() {
     super(TestQcm.class);
   }
-  
+
   /**
-   * Retrouve un test de questionnaire avec les réponses de l'utilisateur
-   * et aussi les infos sur le questionnaire et les questions (par exemple
-   * le titre du questionnaire et les textes des questions et des
-   * réponses).
-   * Récupère le questionnaire et va ajouter les réponses de l'utilisateur.
-   * Suspend la transaction car la méthode modifie le questionnaire avec
-   * des instances de Question qui ne sont pas persistantes et on ne veut
-   * pas de commit à la fin de la transaction.
-   * TODO: Solution avec programmation Java. Chercher aussi une solution qui 
-   * utilise une requête JPQL et moins de programmation Java.
+   * Retrouve un test de questionnaire avec les réponses de l'utilisateur et
+   * aussi les infos sur le questionnaire et les questions (par exemple le titre
+   * du questionnaire et les textes des questions et des réponses). Récupère le
+   * questionnaire et va ajouter les réponses de l'utilisateur. Suspend la
+   * transaction car la méthode modifie le questionnaire avec des instances de
+   * Question qui ne sont pas persistantes et on ne veut pas de commit à la fin
+   * de la transaction. TODO: Solution avec programmation Java. Chercher aussi
+   * une solution qui utilise une requête JPQL et moins de programmation Java.
+   *
    * @param idTestQcm
-   * @return 
+   * @return
    */
   @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
   public TestQcm findQuestionnaireAvecReponsesUtilisateur(Long idTestQcm) {
     TestQcm testQcm = find(idTestQcm);
     // Ajoute les réponses de l'utilisateur dans le questionnaire
-    Questionnaire questionnaire = 
-            testQcm.getQuestionnaireAvecReponsesUtilisateur();
+    Questionnaire questionnaire
+            = testQcm.getQuestionnaireAvecReponsesUtilisateur();
     System.out.println("++++TestQcmfacade.findQuestionnaireAvecReponsesUtilisateur - le questionnaire retourné par getQuestionnaireAvecReponsesUtilisateur=" + questionnaire);
     System.out.println("++++TestQcmfacade.findQuestionnaireAvecReponsesUtilisateur - testQcm juste avant testQcm.setQuestionnaire(questionnaire) : " + testQcm);
     testQcm.setQuestionnaire(questionnaire);

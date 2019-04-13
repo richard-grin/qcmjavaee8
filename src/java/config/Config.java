@@ -17,7 +17,7 @@ import javax.security.enterprise.identitystore.DatabaseIdentityStoreDefinition;
         groupsQuery = "select groupe.nom from groupe join login_groupe on groupe.id = login_groupe.id_groupe where login=?")
 @CustomFormAuthenticationMechanismDefinition(
         loginToContinue = @LoginToContinue(
-                loginPage = "/login/login_custom.xhtml", 
+                loginPage = "/login/login_custom.xhtml",
                 errorPage = ""
         )
 )

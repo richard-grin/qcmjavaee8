@@ -12,6 +12,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  * Ajouter des QCMs à l'initialisation de l'application.
+ *
  * @author grin
  */
 @Stateless

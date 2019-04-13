@@ -27,5 +27,5 @@ public class LifeCycleListener implements PhaseListener {
   public PhaseId getPhaseId() {
     return PhaseId.ANY_PHASE;
   }
-  
+
 }

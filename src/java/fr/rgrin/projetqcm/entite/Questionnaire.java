@@ -18,6 +18,7 @@ import javax.persistence.OrderColumn;
  */
 @Entity
 public class Questionnaire implements Serializable {
+
   @Id
   @GeneratedValue
   private Long id;
@@ -25,7 +26,7 @@ public class Questionnaire implements Serializable {
    * Les questions du QCM.
    */
   @ManyToMany
-  @OrderColumn(name="numeroQuestion")
+  @OrderColumn(name = "numeroQuestion")
   private List<Question> questions = new ArrayList<>();
   /**
    * Le titre du Questionnaire.
@@ -35,36 +36,37 @@ public class Questionnaire implements Serializable {
    * Le thème du questionnaire. Permet de classer les questionnaires.
    */
   private String theme;
-  
-    /**
-   * Mots-clés pour la recherche de questionnaires. 
-   * Séparateur : le point virgule.
+
+  /**
+   * Mots-clés pour la recherche de questionnaires. Séparateur : le point
+   * virgule.
    */
   private String motsCles;
 
   public Questionnaire() {
   }
-  
+
   /**
    * Crée un questionnaire avec un titre.
+   *
    * @param titre titre du questionnaire.
    */
   public Questionnaire(String titre) {
     this.titre = titre;
   }
-  
+
   /**
-   * Constructeur de copie.
-   * Utilisé pour ranger les réponses de l'utilisateur pour faciliter
-   * leurs manipulations et pour éviter les accès concurrents.
+   * Constructeur de copie. Utilisé pour ranger les réponses de l'utilisateur
+   * pour faciliter leurs manipulations et pour éviter les accès concurrents.
    * Est-ce intéressant de l'utiliser ?
-   * @param questionnaire 
+   *
+   * @param questionnaire
    */
   public Questionnaire(Questionnaire questionnaire) {
     this.titre = questionnaire.titre;
     this.theme = questionnaire.theme;
-    ArrayList<Question> listeQuestions = 
-            new ArrayList(questionnaire.questions.size());
+    ArrayList<Question> listeQuestions
+            = new ArrayList(questionnaire.questions.size());
     for (Question question : questionnaire.questions) {
       // copie en profondeur de la question
       Question copieQuestion = new Question(question);
@@ -72,25 +74,25 @@ public class Questionnaire implements Serializable {
     }
     this.questions = listeQuestions;
   }
-  
+
   /**
    * Copie un questionnaire en y ajoutant les réponses données par un
-   * utilisateur lors d'un test du questionnaire.
-   * Utilisé pour ranger les réponses de l'utilisateur pour faciliter
-   * leurs manipulations et pour éviter les accès concurrents.
-   * Est-ce intéressant de l'utiliser ?
-   * @param questionnaire 
+   * utilisateur lors d'un test du questionnaire. Utilisé pour ranger les
+   * réponses de l'utilisateur pour faciliter leurs manipulations et pour éviter
+   * les accès concurrents. Est-ce intéressant de l'utiliser ?
+   *
+   * @param questionnaire
    */
-  public Questionnaire(Questionnaire questionnaire, 
-          Map<Long,ReponseTest> mapReponsesUtilisateur) {
+  public Questionnaire(Questionnaire questionnaire,
+          Map<Long, ReponseTest> mapReponsesUtilisateur) {
     this.titre = questionnaire.titre;
     this.theme = questionnaire.theme;
-    ArrayList<Question> listeQuestions = 
-            new ArrayList(questionnaire.questions.size());
+    ArrayList<Question> listeQuestions
+            = new ArrayList(questionnaire.questions.size());
     for (Question question : questionnaire.questions) {
       // copie en profondeur de la question
-      Question copieQuestion = 
-              new Question(question, mapReponsesUtilisateur);
+      Question copieQuestion
+              = new Question(question, mapReponsesUtilisateur);
       listeQuestions.add(copieQuestion);
     }
     this.questions = listeQuestions;
@@ -99,7 +101,7 @@ public class Questionnaire implements Serializable {
   public Long getId() {
     return id;
   }
-  
+
   public String getTitre() {
     return titre;
   }
@@ -115,8 +117,8 @@ public class Questionnaire implements Serializable {
   public void setTheme(String theme) {
     this.theme = theme;
   }
-  
-    public String getMotsCles() {
+
+  public String getMotsCles() {
     return motsCles;
   }
 
@@ -126,6 +128,7 @@ public class Questionnaire implements Serializable {
 
   /**
    * Ajoute une question au questionnaire.
+   *
    * @param question question qui est ajoutée.
    */
   public void ajouterQuestion(Question question) {
@@ -135,8 +138,8 @@ public class Questionnaire implements Serializable {
 
   @Override
   public String toString() {
-    return "Questionnaire{" + super.toString() 
-            + ", questions=" + questions 
+    return "Questionnaire{" + super.toString()
+            + ", questions=" + questions
             + ", titre=" + titre + ", theme=" + theme + '}';
   }
 

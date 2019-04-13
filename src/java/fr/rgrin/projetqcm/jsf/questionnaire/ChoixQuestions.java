@@ -20,25 +20,27 @@ import javax.inject.Named;
  * <li> Choix des questions.</li>
  * <li> Ordre des questions.</li>
  * </ol>
+ *
  * @author richard
  */
 @Named
 @ConversationScoped
 public class ChoixQuestions implements Serializable {
+
   @EJB
   private QuestionnaireFacade questionnaireFacade;
   @Inject
   Conversation conversation;
   @Inject
   ListeQuestions listeQuestions;
-  
+
   /**
    * Questionnaire dont on choisit les questions.
    */
   private Questionnaire questionnaireEnCours;
-          
+
   private Question[] questionsChoisies;
-  
+
   public QuestionDataModel getQuestions() {
     // Sans doute plus simple d'utiliser directement QuestionFacade mais
     // je veux tester l'injection d'un autre backing bean.
@@ -61,7 +63,7 @@ public class ChoixQuestions implements Serializable {
   public Question[] getQuestionsChoisies() {
     return questionsChoisies;
   }
-  
+
   public void initQuestionnaire() {
     System.out.println("===ChoixQuestions.initQuestionnaire; Questionnaire en cours : " + questionnaireEnCours);
     questionsChoisies = questionnaireEnCours.getQuestions().toArray(new Question[0]);
@@ -70,12 +72,12 @@ public class ChoixQuestions implements Serializable {
       System.out.println("=======ChoixQuestions.initQuestionnaire; Démarrage de la conversation");
     }
   }
-  
+
   public void enregistrer() {
     System.out.println("+*=*=*=Questionnaire en cours=" + questionnaireEnCours);
     questionnaireEnCours.setQuestions(Arrays.asList(questionsChoisies));
     questionnaireFacade.edit(questionnaireEnCours);
-    if (! conversation.isTransient()) {
+    if (!conversation.isTransient()) {
       conversation.end();
       System.out.println("=======ChoixQuestions.enregistrer; Fin de la conversation");
     }

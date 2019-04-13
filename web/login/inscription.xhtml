@@ -2,9 +2,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!-- Page qui permet à un utilisateur de créer un compte. -->
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
   <body>
     <ui:composition template="/WEB-INF/templates/template.xhtml">
@@ -14,22 +14,22 @@
           <h:messages id="messages" errorClass="erreur"/>
           <h:panelGrid id="panelGrid" columns="2">
             <f:event type="postValidate" 
-                     listener="#{accueilController.validateMdps}" />
+                     listener="#{inscriptionController.validateMdps}" />
             <h:outputLabel value="#{bundle.identifiant}" for="login" />
             <h:panelGroup>
-              <h:inputText id="login" value="#{accueilController.login.login}"
+              <h:inputText id="login" value="#{inscriptionController.login.login}"
                            title="#{bundle.idTitle}" required="true"
                            requiredMessage="#{bundle.idRequiredMessage}"
-                           validator="#{accueilController.validateLogin}">
+                           validator="#{inscriptionController.validateLogin}">
                 <f:ajax event="blur" render="messageLogin messages" />
               </h:inputText>
               <h:message id="messageLogin" for="login" errorClass="erreur"/>
             </h:panelGroup>
             <h:outputLabel value="#{bundle.email}" for="email" />
-            <h:inputText id="email" value="#{accueilController.login.email}" title="#{bundle.idTitle}" required="true" 
+            <h:inputText id="email" value="#{inscriptionController.login.email}" title="#{bundle.idTitle}" required="true" 
                          requiredMessage="#{bundle.idRequiredMessage}"/>
             <h:outputLabel value="#{bundle.motDePasse}" for="motDePasse" />
-            <h:inputSecret id="motDePasse" value="#{accueilController.login.motDePasse}" 
+            <h:inputSecret id="motDePasse" value="#{inscriptionController.login.motDePasse}" 
                            title="#{bundle.mdpTitle}" required="true" 
                            requiredMessage="#{bundle.mdpRequiredMessage}">
               <f:validateLength minimum="2"/>
@@ -38,30 +38,30 @@
                 <!-- la conversion en SHA-256 se fait maintenant 
                 juste avant l'enregistrement dans la base,
                 dans la méthode AccueilController.enregistrer(). -->
-                <f:converter converterId="converterMotDePasse" /></ui:remove>
+                <f:converter converterId="converterMotDePasse" />
+              </ui:remove>
 
               <f:ajax event="blur" render="messages" />
             </h:inputSecret>
             <h:outputLabel value="#{bundle.motDePasse2}" for="motDePasse2" />
             <h:panelGroup>
               <h:inputSecret id="motDePasse2" 
-                             value="#{accueilController.motDePasse2}" 
-                             title="#{bundle.mdp2Title}"
-                             validator="#{accueilController.validateMotsDePasse}">
+                             value="#{inscriptionController.motDePasse2}" 
+                             title="#{bundle.mdp2Title}" >
                 <f:validateLength minimum="2"/>
                 <f:ajax event="blur" execute="@this motDePasse" render="messages mdp2" />
               </h:inputSecret>
               <h:message id="mdp2" for="motDePasse2" errorClass="erreur"/>
             </h:panelGroup>
-
-            <h:outputLabel value="#{bundle.nom}" for="nom" />
-            <h:inputText id="nom" value="#{accueilController.personne.nom}" title="#{bundle.nomTitle}" required="true" 
-                         requiredMessage="#{bundle.nomRequiredMessage}"/>
-            <h:outputLabel value="#{bundle.prenom}" for="prenom" />
-            <h:inputText id="prenom" value="#{accueilController.personne.prenom}" title="#{bundle.prenomTitle}" required="true" 
-                         />
+            <ui:remove>
+              <h:outputLabel value="#{bundle.nom}" for="nom" />
+              <h:inputText id="nom" value="#{accueilController.personne.nom}" title="#{bundle.nomTitle}" required="true" 
+                           requiredMessage="#{bundle.nomRequiredMessage}"/>
+              <h:outputLabel value="#{bundle.prenom}" for="prenom" />
+              <h:inputText id="prenom" value="#{accueilController.personne.prenom}" title="#{bundle.prenomTitle}" required="true" />
+            </ui:remove>
             <h:panelGroup/>
-            <h:commandButton action="#{accueilController.enregistrer()}"
+            <h:commandButton action="#{inscriptionController.enregistrer()}"
                              value="#{bundle.enregistrer}"/>
           </h:panelGrid>
         </h:form>  

@@ -18,6 +18,7 @@ import javax.persistence.OrderColumn;
  */
 @Entity
 public class Question implements Serializable {
+
   @Id
   @GeneratedValue
   private Long id;
@@ -26,8 +27,7 @@ public class Question implements Serializable {
    */
   private String enonce;
   /**
-   * Indique si l'utilisateur peut donner plusieurs réponses.
-   * Vrai par défaut.
+   * Indique si l'utilisateur peut donner plusieurs réponses. Vrai par défaut.
    */
   private boolean reponsesMultiples = true;
   /**
@@ -39,22 +39,23 @@ public class Question implements Serializable {
    * Les réponses possibles aux questions. Elles sont chargées en mémoire
    * lorsque la question l'est. Elles sont rendues persistantes lorsque la
    * question l'est. Elles sont supprimées si on les enlève de la question.
-   * L'association est unidirectionnelle de Question vers Reponse.
-   * Une réponse ne peut être associé qu'à une seule question ; l'association
-   * est une composition et donc les réponses à une question sont supprimées
-   * quand une question est supprimée.
+   * L'association est unidirectionnelle de Question vers Reponse. Une réponse
+   * ne peut être associé qu'à une seule question ; l'association est une
+   * composition et donc les réponses à une question sont supprimées quand une
+   * question est supprimée.
    */
   @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL,
-  orphanRemoval = true)
-  @OrderColumn(name="numeroReponse")
+          orphanRemoval = true)
+  @OrderColumn(name = "numeroReponse")
   private List<Reponse> reponses = new ArrayList<>();
 
   public Question() {
   }
-  
+
   /**
    * Constructeur de copie
-   * @param question 
+   *
+   * @param question
    */
   public Question(Question question) {
     this.enonce = question.enonce;
@@ -70,15 +71,16 @@ public class Question implements Serializable {
     }
     this.reponses = copieReponses;
   }
-  
+
   /**
    * Copie de la question en y mettant les réponses d'un utilisateur
-   * @param question 
-   * @param testQcm le test qui a été passé par l'utilisateur, qui contient
-   * les réponses de l'utilisateur que l'on veut mettre dans les 
-   * réponses aux questions.
+   *
+   * @param question
+   * @param testQcm le test qui a été passé par l'utilisateur, qui contient les
+   * réponses de l'utilisateur que l'on veut mettre dans les réponses aux
+   * questions.
    */
-  public Question(Question question, Map<Long,ReponseTest> reponsesUtilisateur) {
+  public Question(Question question, Map<Long, ReponseTest> reponsesUtilisateur) {
     this.enonce = question.enonce;
     this.motsCles = question.motsCles;
     this.reponsesMultiples = question.reponsesMultiples;
@@ -108,7 +110,8 @@ public class Question implements Serializable {
 
   /**
    * Crée une nouvelle question qui accepte les réponses multiples.
-   * @param enonce 
+   *
+   * @param enonce
    */
   public Question(String enonce) {
     this.enonce = enonce;
@@ -150,7 +153,7 @@ public class Question implements Serializable {
 //    System.out.println("getReponses pour question " + this + " qui retourne "+ reponses);
     return reponses;
   }
-  
+
   public void setReponses(List<Reponse> reponses) {
 //    System.out.println("*****+++++setReponses pour question " + this + "avec reponses=" + reponses);
     this.reponses = reponses;
@@ -165,7 +168,7 @@ public class Question implements Serializable {
   public void ajouterReponse(String reponse, boolean bon) {
     this.reponses.add(new Reponse(reponse, bon));
   }
-  
+
   public void ajouterReponse(Reponse reponse) {
     this.reponses.add(reponse);
   }
@@ -189,8 +192,8 @@ public class Question implements Serializable {
 
   @Override
   public String toString() {
-    return "Question [id=" + id + ", enonce=" + enonce 
-            + ", reponses=" + reponses 
+    return "Question [id=" + id + ", enonce=" + enonce
+            + ", reponses=" + reponses
             + ", adresse=" + super.toString() + "]";
   }
 
