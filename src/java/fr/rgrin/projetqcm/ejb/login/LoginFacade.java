@@ -1,6 +1,9 @@
-package fr.rgrin.projetqcm.ejb;
+package fr.rgrin.projetqcm.ejb.login;
 
+import fr.rgrin.login.entite.Groupe;
 import fr.rgrin.login.entite.Login;
+import fr.rgrin.projetqcm.ejb.AbstractFacade;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -42,6 +45,17 @@ public class LoginFacade extends AbstractFacade<Login> {
     TypedQuery<Login> query = em.createNamedQuery("Login.findByNom", Login.class);
     query.setParameter("nomLogin", nom);
     return query.getSingleResult();
+  }
+  
+  public List<Login> findAllWithGroups() {
+    TypedQuery<Login> query = em.createNamedQuery("Login.getAllWithGroups", Login.class);
+    return query.getResultList();
+  }
+  
+  public List<Groupe> findGroupesUtilisateur(String nomLogin) {
+    TypedQuery<Groupe> query = em.createNamedQuery("Login.findGroupesUtilisateur", Groupe.class);
+    query.setParameter("nomLogin", nomLogin);
+    return query.getResultList();
   }
 
   @Override

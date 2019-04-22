@@ -1,4 +1,4 @@
-package fr.rgrin.projetqcm.ejb;
+package fr.rgrin.projetqcm.ejb.init;
 
 import fr.rgrin.projetqcm.util.HashMdp;
 import java.sql.Connection;
@@ -20,7 +20,7 @@ import javax.mail.MailSessionDefinition;
 import javax.sql.DataSource;
 
 /**
- * Initialise la base de données avec des utilisateurs et des données pour les
+ * Initialise les 2 bases de données avec des utilisateurs et des données pour les
  * questions et les questionnaires.
  *
  * @author richard
@@ -156,6 +156,7 @@ public class Init {
                 + hashMdp + "', 'grin@unice.fr', 'ok')");
         execute(c, "INSERT INTO groupe(id, nom) VALUES(1, 'enseignant')");
         execute(c, "INSERT INTO groupe(id, nom)  VALUES(2, 'etudiant')");
+        execute(c, "INSERT INTO groupe(id, nom)  VALUES(3, 'admin')");
         execute(c, "INSERT INTO login_groupe(login, id_groupe) VALUES('ric', 1)");
         execute(c, "INSERT INTO login_groupe(login, id_groupe) VALUES('ric', 2)");
 
@@ -165,6 +166,11 @@ public class Init {
                 + hashMdp + "', 'grin@unice.fr', 'ok')");
         execute(c, "INSERT INTO login_groupe(login, id_groupe) VALUES('toto', 2)");
 //      execute(c, "INSERT INTO caller_groups VALUES('juneau', 'group2')");
+
+        // admin appartient seulement au groupe des administrateurs
+        execute(c, "INSERT INTO login (LOGIN, MOT_DE_PASSE, email, statut) VALUES('admin', '"
+                + hashMdp + "', 'grin@unice.fr', 'ok')");
+        execute(c, "INSERT INTO login_groupe(login, id_groupe) VALUES('admin', 3)");
       }
 //      if (vide(c, "formation")) {
 //        System.out.println("Initialisation des données pour les formations");

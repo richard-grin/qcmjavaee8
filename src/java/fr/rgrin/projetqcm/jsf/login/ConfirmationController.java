@@ -2,8 +2,8 @@ package fr.rgrin.projetqcm.jsf.login;
 
 import fr.rgrin.login.entite.Groupe;
 import fr.rgrin.login.entite.Login;
-import fr.rgrin.projetqcm.ejb.GroupeFacade;
-import fr.rgrin.projetqcm.ejb.LoginFacade;
+import fr.rgrin.projetqcm.ejb.login.GroupeFacade;
+import fr.rgrin.projetqcm.ejb.login.LoginFacade;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
@@ -73,7 +73,10 @@ public class ConfirmationController {
             && login2.getStatut().equals("email")) {
       System.out.println("*****Confirmation OK !!!!");
       login2.setStatut("ok");
-      // Tout est OK, on peut le mettre dans le groupe des inscrits
+      // Tout est OK, on peut le mettre dans le groupe des inscrits.
+      // Comme les utilisateurs de ce groupe ne peuvent presque rien faire,
+      // un administrateur devra passer l'utilisateur au moins dans le groupe
+      // des étudiants pour qu'il puisse au moins passer un QCM.
       Groupe groupeInscrits;
       try {
         groupeInscrits = groupeFacade.findByNom("inscrit");

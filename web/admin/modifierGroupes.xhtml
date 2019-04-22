@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+  <body>
+
+    <ui:composition template="/WEB-INF/templates/template_admin.xhtml">
+
+      <ui:define name="top">
+        Modification du statut d'un utilisateur
+      </ui:define>
+
+      <ui:define name="content">
+        <f:view>
+
+
+          <h1><h:outputText value="Modifier les statuts d'un utilisateur"/></h1>
+          <p:dataTable value="#{modifierGroupes.allLoginsWithGroups}" var="login">
+            <p:column>
+              <f:facet name="header">
+                <h:outputText value="Login"/>
+              </f:facet>
+              <h:outputText value="#{login.login}"/>
+            </p:column>
+
+            <ui:remove>
+              <p:column>
+                <f:facet name="header">
+                  <h:outputText value="Email"/>
+                </f:facet>
+                <h:outputText value="#{login.email}"/>
+              </p:column>
+            </ui:remove>
+
+            <p:column>
+
+              <f:facet name="header">
+                <h:outputText value="Statuts"/>
+              </f:facet>
+
+              <h:form>
+
+                <p:autoComplete id="groupes" value="#{modifierGroupes.groupesDuLogin}"
+                                completeMethod="#{modifierGroupes.complete}"
+                                var="groupe" cache="true"
+                                converter="groupeConverter"
+                                itemValue="#{groupe}" itemLabel="#{groupe.nom}"
+                                multiple="true" forceSelection="true"
+                                >
+                </p:autoComplete>
+
+                <h:commandButton value="Enregistrer les statuts pour #{login.login}"
+                                 action="#{modifierGroupes.enregistrer(login)}"/>
+                Les groupes :
+                <ui:repeat id="lesgroupes" value="#{login.groupes}" var='groupe2'>
+                  #{groupe2.nom}
+                </ui:repeat>
+              </h:form>
+
+              <ui:remove>
+                <ui:repeat value="#{modifierGroupes.getGroupesUtilisateur(login)}"
+                           var="groupe2">
+                  #{groupe2.nom}
+                </ui:repeat>
+              </ui:remove>
+            </p:column>
+          </p:dataTable>
+
+
+        </f:view>
+
+      </ui:define>
+
+    </ui:composition>
+
+  </body>
+</html>

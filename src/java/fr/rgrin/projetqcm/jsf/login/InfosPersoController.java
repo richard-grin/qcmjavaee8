@@ -1,7 +1,7 @@
 package fr.rgrin.projetqcm.jsf.login;
 
 import fr.rgrin.login.entite.Login;
-import fr.rgrin.projetqcm.ejb.LoginFacade;
+import fr.rgrin.projetqcm.ejb.login.LoginFacade;
 import fr.rgrin.projetqcm.util.HashMdp;
 import java.io.Serializable;
 import java.security.Principal;

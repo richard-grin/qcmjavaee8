@@ -39,8 +39,16 @@ public class Groupe implements Serializable {
     return id;
   }
 
+  public String getNom() {
+    return nom;
+  }
+
   void addUtilisateur(Login utilisateur) {
     this.logins.add(utilisateur);
+  }
+
+  public List<Login> getLogins() {
+    return logins;
   }
 
 }

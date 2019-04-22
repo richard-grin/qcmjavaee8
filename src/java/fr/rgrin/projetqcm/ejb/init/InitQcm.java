@@ -1,8 +1,6 @@
-package fr.rgrin.projetqcm.ejb;
+package fr.rgrin.projetqcm.ejb.init;
 
-import fr.rgrin.projetqcm.entite.Question;
-import fr.rgrin.projetqcm.entite.Questionnaire;
-import fr.rgrin.projetqcm.entite.Reponse;
+import fr.rgrin.projetqcm.ejb.QuestionFacade;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;

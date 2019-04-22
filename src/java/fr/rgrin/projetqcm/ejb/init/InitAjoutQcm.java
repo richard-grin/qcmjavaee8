@@ -1,5 +1,6 @@
-package fr.rgrin.projetqcm.ejb;
+package fr.rgrin.projetqcm.ejb.init;
 
+import fr.rgrin.projetqcm.ejb.QuestionFacade;
 import fr.rgrin.projetqcm.entite.Question;
 import fr.rgrin.projetqcm.entite.Questionnaire;
 import fr.rgrin.projetqcm.entite.Reponse;
